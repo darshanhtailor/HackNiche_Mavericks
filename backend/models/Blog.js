@@ -14,10 +14,6 @@ const BlogsSchema = new Schema({
         type: String,
         required: true
     },
-    title: {
-        type: String,
-        required: true
-    },
     content: {
         type: String,
         required: true,
@@ -26,6 +22,7 @@ const BlogsSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    image_link: String
 });
 
 module.exports = mongoose.model("blogs", BlogsSchema);
