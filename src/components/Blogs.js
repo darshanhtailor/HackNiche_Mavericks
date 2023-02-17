@@ -16,12 +16,13 @@ function Blogs() {
 
     const [blogs, setBlogs] = useState([{}]);
     const [title, setTitle] = useState("");
-    const [content, setcontent] = useState([{}]);
-    const [name, setname] = useState([{}]);
+    const [content, setContent] = useState("");
+    const [name, setName] = useState("");
     const [userid, setUserid] = useState(localStorage.getItem('userid'));
+    console.log("inside", userid);
 
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -37,17 +38,18 @@ function Blogs() {
         // console.log(blogs)
     }
 
-    const handleSubmit = async (e, userid) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log("inside", userid);
+
+
             const res = await axios.post(`http://localhost:5000/api/blogs/createblog/${userid}`,
-                JSON.stringify({ title: title, content: content }),
+                JSON.stringify({ title, content }),
                 {
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'auth-token': localStorage.getItem('token') },
                     withCredential: true
                 });
-            handleClose();
+            // handleClose();
 
         } catch (err) {
             if (!err?.res) {
@@ -90,17 +92,17 @@ function Blogs() {
                 <form>
                     <div className="form-group">
 
-                        <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Your name"></input>
+                        <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)}></input>
                     </div>
                     <div className="form-group">
 
-                        <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Blog Title"></input>
+                        <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Blog Title" value={title} onChange={(e) => setTitle(e.target.value)}></input>
                     </div>
 
 
                     <div className="form-group">
                         <label htmlFor="exampleFormControlTextarea1">Blog Content</label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
+                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="6" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
                     </div>
                     <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>

@@ -1,6 +1,7 @@
 const express = require("express")
 const fetchuser = require("../middlewares/fetchUser");
 const Blogs = require('../models/Blog');
+const User = require('../models/User');
 const router = express.Router()
 
 router.get('/', async (req, res) => {
@@ -14,11 +15,10 @@ router.get('/', async (req, res) => {
 
 router.post('/createblog/:userid', fetchuser, async (req, res) => {
     try {
-
         const userId = req.params['userid'];
-
-        const blog = { ...req.body, creator: userId };
-
+        const nameObj = await User.findById(userId).select('name -_id');
+        const blog = { title: req.body.title, content: req.body.content, name: nameObj.name, creator: userId };
+        console.log(blog);
         newblog = await Blogs.create(blog);
         res.status(201).json(newblog);
     } catch (err) {
