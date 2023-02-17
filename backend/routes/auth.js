@@ -69,7 +69,8 @@ router.post("/login", [
         }
         const authToken = jwt.sign(data, JWT_SECRET);
         success = true;
-        res.send({ success, authToken })
+        req.user = user.id;
+        res.send({ success, authToken, userid: user.id })
     } catch (error) {
         res.status(500).send("Error has occured " + error);
     }

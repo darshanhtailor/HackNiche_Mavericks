@@ -1,9 +1,5 @@
-const JobScraper = require('job-scraper');
+const list = require('./joblist');
+const express = require('express');
+const Jobs = require('../models/Jobs');
 
-const args = ['Pizza Delivery', 'New York', 'New York'] 
-const jobScraper = new JobScraper(...args);
-
-const scraped = jobScraper.init();
-scraped.then(res=>{
-    console.log(res);
-})
+const router = express.Router();
