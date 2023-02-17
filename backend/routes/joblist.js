@@ -56,5 +56,8 @@ const jobs = [
         link: ''
     }
 ]
+// 8 done
 
-module.exports = jobs;
+// for(let job of jobs){
+//     console.log(JSON.stringify(job));
+// }
