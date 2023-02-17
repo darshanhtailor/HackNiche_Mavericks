@@ -15,14 +15,13 @@ function App() {
       <NoteState>
         <Router>
           <Navbar />
-          <Alert message="This is amazing"/>
+          {/* <Alert message="This is amazing"/> */}
           <div className='container'>
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route exact path="/about" element={<About />} />
               <Route exact path="/login" element={<Login />} />
               <Route exact path="/signup" element={<Signup />} />
-
               {/* Admin Routes */}
               <Route exact path="/admin" element={<Home role="admin"/>} />
             </Routes>

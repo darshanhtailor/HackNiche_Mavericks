@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const Login = (props) => {
     const navigate = useNavigate();
-    const [credentials, setCredentials] = useState({email: "", password: ""}) 
+    const [credentials, setCredentials] = useState({phone: "", password: ""}) 
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(credentials);
@@ -12,7 +12,7 @@ export const Login = (props) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email: credentials.email, password: credentials.password})
+            body: JSON.stringify({phone: credentials.phone, password: credentials.password})
         });
         const json = await response.json()
         console.log(json);
@@ -31,9 +31,9 @@ export const Login = (props) => {
         <div>
             <form  onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email address</label>
-                    <input type="email" className="form-control" value={credentials.email} onChange={onChange} id="email" name="email" aria-describedby="emailHelp" />
-                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                    <label htmlFor="phone" className="form-label">Contact Number</label>
+                    <input type="tel" className="form-control" value={credentials.phone} onChange={onChange} id="phone" name="phone" aria-describedby="emailHelp" />
+                    <div id="emailHelp" className="form-text">We'll never share your contact with anyone else.</div>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
