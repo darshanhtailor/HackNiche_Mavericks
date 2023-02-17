@@ -10,7 +10,7 @@ const JWT_SECRET = "HelloRashid"
 
 // Create a user using : POST "/api/auth/ Doesnt require auth"
 router.post("/createUser", [
-    body('email', 'Enter a valid email').isEmail(),
+    body('phone', 'Enter a valid phone no.').isMobilePhone(),
     body('name', 'Enter a valid name').isLength({ min: 3 }),
     body('password', 'Password too short').isLength({ min: 3 })
 ], async (req, res) => {
@@ -25,7 +25,7 @@ router.post("/createUser", [
     let secPass = await bcrypt.hash(req.body.password, salt);
     try {
         // checking if user already exist
-        let newuser = await users.findOne({ email: req.body.email })
+        let newuser = await users.findOne({ phone: req.body.phone })
         if (newuser) {
             return res.status(400).json({success, error: "This user already exist" });
         }
@@ -33,7 +33,7 @@ router.post("/createUser", [
         // creating a new user
         newuser = await users.create({
             name: req.body.name,
-            email: req.body.email,
+            phone: req.body.phone,
             password: secPass,
         })
         success = true;
@@ -45,7 +45,7 @@ router.post("/createUser", [
 
 // Authenticate a user
 router.post("/login", [
-    body('email', 'Enter a valid email').isEmail(),
+    body('phone', 'Enter a valid phone number').isMobilePhone(),
     body('password', 'Password can not be blank').isLength({ min: 1 })
 ], async (req, res) => {
     // checking validation and errors
@@ -54,10 +54,10 @@ router.post("/login", [
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, password } = req.body;
+    const { phone, password } = req.body;
     try {
         let success = false;
-        let user = await users.findOne({ email })
+        let user = await users.findOne({ phone })
         if (!user) return res.status(500).json({success, error: "Please try to login with correct credential" });
         const passwordCompare = await bcrypt.compare(password, user.password);
         if (!passwordCompare) return res.status(500).json({success, error: "Please try to login with correct credential" });
