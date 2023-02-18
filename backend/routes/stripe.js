@@ -4,7 +4,7 @@ const stripe = require("stripe")("sk_test_51McbTGSJJrDeHsxRhGbjXcpn8m2hcmnEa0hPI
 const router = express.Router();
 
 router.post("/create-checkout-session", async (req, res) => { 
-    const product = req.body; 
+    const {product} = req.body; 
     const session = await stripe.checkout.sessions.create({ 
       payment_method_types: ["card"], 
       line_items: [ 
