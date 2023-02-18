@@ -14,6 +14,7 @@ app.use("/api/notes", require("./routes/notes"))
 app.use("/api/admin", require("./routes/admin"))
 app.use("/api/blogs", require("./routes/blog"))
 app.use("/api/jobs", require("./routes/jobs"))
+app.use('/api/pay', require("./routes/stripe"));
 
 // app.use("/api/team", require("./routes/team"));
 

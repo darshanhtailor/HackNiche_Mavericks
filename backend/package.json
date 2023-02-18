@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "bot": "nodemon ./wa-bot/index.js"
   },
   "author": "",
   "license": "ISC",
