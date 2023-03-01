@@ -26,5 +26,14 @@ router.post('/createblog/:userid', fetchuser, async (req, res) => {
     }
 });
 
+router.get('/:blogid', async(req, res)=>{
+    try{
+        const blog = await Blogs.findById(req.params['blogid']);
+        res.status(200).send(blog);
+    } catch(err){
+        res.status(400).send({message: err.message});
+    }
+});
+
 
 module.exports = router;
