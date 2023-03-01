@@ -35,10 +35,12 @@ export const Signup = () => {
         }
     }
     return (
-        <div className="signup">
-            <form  onSubmit={handleSubmit}>
+        <div className="signup" style={{position:"relative"}}>
+            {/* <img src="/img/army-seva.png" style={{position: "absolute",width:"20%", left:"200px",top:"70px"}}/> */}
+            <img src="/img/Untitled Design 1.png" style={{position: "absolute",width:"30%", right:"120px",top:"180px"}}/>
+            <form  onSubmit={handleSubmit} style={{position:"absolute", left:"200px", top:"150px"}}>
                 <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Name</label>
+                    <label htmlFor="email" className="form-label" >Name</label>
                     <input type="text" className="form-control" value={credentials.name} onChange={onChange} id="name" name="name" aria-describedby="emailHelp" required/>
                 </div>
                 <div className="mb-3">
@@ -55,8 +57,9 @@ export const Signup = () => {
                     <input type="password" className="form-control" value={credentials.cpassword} onChange={onChange} name="cpassword" id="cpassword" required minLength={5}/>
                 </div>
                 <p>{msg}</p>
-                <button type="submit" className="btn btn-primary">Register</button>
+                <button type="submit" className="btn" >Register</button>
             </form>
+            
         </div>
     )
 }

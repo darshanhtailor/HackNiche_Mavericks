@@ -8,11 +8,16 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import {Link} from "react-router-dom";
+import { color } from 'style-value-types';
 
 
 
 function Blogs() {
+    const [open2,setOpen2]=useState(false);
+    const [blogdata,setBlogdata]=useState({});
+
+    
 
     const [blogs, setBlogs] = useState([{}]);
     const [title, setTitle] = useState("");
@@ -28,15 +33,27 @@ function Blogs() {
         setOpen(true);
     };
 
+    const handleClickOpen2 = (blog) => {
+        setBlogdata(blog);
+        setOpen2(true);
+        
+    };
+
     const handleClose = () => {
         setOpen(false);
     };
+    const handleClose2 = () => {
+        setOpen2(false);
+    };
+
     const getBlogs = async () => {
         const res = await axios.get("http://localhost:5000/api/blogs/");
 
         setBlogs(res.data);
         // console.log(blogs)
     }
+  
+   
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -68,28 +85,40 @@ function Blogs() {
     }, [])
     return (
         <>
-            {
-                blogs.map((blog, index) => (
-                    <li key={index}>
-                        <div className="card" style={{ width: 18 + 'rem' }}>
-                            <div className="card-body">
-                                <h5 className="card-title">{blog.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Category:{blog.creator}</h6>
-                                <p className="card-text">{blog.content} </p>
-                                {/*             
+            <div className="container-fluid">
+                <div className="row">
+                    <div className='card-deck' >
+                        {
+                            
+                            blogs.map((blog, index) => (
+                                <div className="blogs_card" key={index} onClick={()=>handleClickOpen2(blog)} style={{position: "relative",padding:30}}>
+                                    <div className="card-body">
+                                        <h6 className="card-title" >{blog.title}</h6>
+                                        <span></span>
+                                        <Link to="/blog" className='read'>Read Me</Link>
+                                        <i className="card-subtitle mb-2 text-muted">{blog.name}</i>
+                                        <p className="card-text" style={{}}>{blog.content} </p>
+                                        {/*             
              <button className="btn btn-danger" onClick={(e)=>deleteProduct(e,blog._id)}>Delete</button> */}
-                            </div>
-                        </div>
-                    </li>
-                ))
+                                    </div>
+                                    
+                                </div>
+                               
+                            ))
 
-            }
-            <Button variant="outlined" onClick={handleClickOpen}>
+
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+            <Button variant="outlined" className='add_blog' style={{marginLeft:600,fontSize:20}} onClick={handleClickOpen} >
                 ADD BLOG
             </Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>ADD YOUR BLOG</DialogTitle>
-                <form>
+                <form >
                     <div className="form-group">
 
                         <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)}></input>
@@ -111,9 +140,56 @@ function Blogs() {
                 </form>
 
             </Dialog>
+            <Dialog open={open2} onClose2={handleClose2}>
+                <DialogTitle style={{fontWeight: "bolder",fontSize:"25px"}}>{blogdata.title}</DialogTitle>
+                <h6 className="card-subtitle mb-2 text-muted" style={{marginLeft: "20px",fontSize:"22px",fontStyle:"italic"}}>{blogdata.name}</h6>
+
+                    
+                    <div className="blog_card" style={{marginTop: "10px",marginLeft:"10px",marginRight: "10px" }}>
+                <div className="card-body">
+
+                {/* <h3 className="card-title" style={{margin: "10px",alignContent:"center",marginBottom:"25px"}} > {blogdata.title}</h3> */}
+
+                
+                
+                <p className="card-text" style={{margin: "10px", fontSize:"20px"}}>{blogdata.content} </p>
+
+                <DialogActions style={{marginBottom: "10px"}}>
+                        <Button onClick={handleClose2} className="cancel_btn">Cancel</Button>
+                    </DialogActions>  
+                                    </div>
+                                    
+                                </div>
+
+            </Dialog>
         </>
 
     )
 }
 
 export default Blogs
+
+{/* <Dialog open={open} onClose={handleClose}>
+<DialogTitle>ADD YOUR BLOG</DialogTitle>
+<form className="add_blog">
+    <div className="form-group">
+
+        <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)}></input>
+    </div>
+    <div className="form-group">
+
+        <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Blog Title" value={title} onChange={(e) => setTitle(e.target.value)}></input>
+    </div>
+
+
+    <div className="form-group">
+        <label htmlFor="exampleFormControlTextarea1">Blog Content</label>
+        <textarea className="form-control" id="exampleFormControlTextarea1" rows="6" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+    </div>
+    <DialogActions>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleSubmit}>Submit</Button>
+    </DialogActions>
+</form>
+
+</Dialog> */}

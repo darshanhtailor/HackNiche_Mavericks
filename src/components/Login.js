@@ -30,8 +30,12 @@ export const Login = (props) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div  style={{position:"relative"}}>
+
+             {/* <img src="/img/army-seva.png" style={{position: "absolute",width:"20%", left:"200px",top:"70px"}}/> */}
+            <img src="/img/Untitled Design 1.png" style={{position: "absolute",width:"25%", right:"150px",top:"140px"}}/>
+
+            <form onSubmit={handleSubmit} style={{position:"absolute", left:"200px", top:"150px"}}>
                 <div className="mb-3">
                     <label htmlFor="phone" className="form-label">Contact Number</label>
                     <input type="tel" className="form-control" value={credentials.phone} onChange={onChange} id="phone" name="phone" aria-describedby="emailHelp" />
