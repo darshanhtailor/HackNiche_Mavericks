@@ -15,7 +15,7 @@ function StripePayment() {
         quantity: 1, 
       }); 
       const makePayment = async () => { 
-        const stripe = await loadStripe("pk_test_51McbTGSJJrDeHsxRxiSCZKBZBfHRsAWgLtPzhT2Gqk2SY4gmShmbEZav8hGlxGR0qoJ38pSYYYtDezotnAX3aHVH00xMsE7hCR"); 
+        const stripe = await loadStripe(process.env.STRIPE_KEY); 
         const body = { product }; 
         const headers = { 
           "Content-Type": "application/json", 
