@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const url = "mongodb+srv://darshan:12345@cluster0.potuzln.mongodb.net/reactauth?retryWrites=true&w=majority";
+const url = "";
 
 
 const connectToAtlas = () => {
